@@ -7,17 +7,19 @@ const ActionStateForm = () => {
   });
 
   async function createPost(previousState, formData) {
-    const title = formData.get("title");
-    const body = formData.get("body");
+    // const title = formData.get("title");
+    // const body = formData.get("body");
+
+    const form = Object.fromEntries(formData.entries());
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/post",
+        "https://jsonplaceholder.typicode.com/posts",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, body }),
+          body: JSON.stringify(form),
         }
       );
 
