@@ -1,7 +1,8 @@
 import { useActionState } from "react";
+import SubmitButton from "./SubmitButton";
 
 const ActionStateForm = () => {
-  const [state, submitAction, isPending] = useActionState(createPost, {
+  const [state, submitAction] = useActionState(createPost, {
     data: null,
     error: null,
   });
@@ -51,9 +52,10 @@ const ActionStateForm = () => {
         value={state.body}
       />
 
-      <button type="submit" disabled={isPending}>
+      {/* <button type="submit" disabled={isPending}>
         {isPending ? "Submitting..." : "Submit"}
-      </button>
+      </button> */}
+      <SubmitButton />
 
       {state.error && <p style={{ color: "red" }}>Error: {state.error}</p>}
 
