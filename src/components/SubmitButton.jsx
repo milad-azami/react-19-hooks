@@ -1,7 +1,9 @@
 import { useFormStatus } from "react-dom";
 
 function SubmitButton() {
-  const { pending } = useFormStatus();
+  const { pending, data, method, action } = useFormStatus();
+
+  console.log({ data, method, action });
 
   return (
     <button type="submit" disabled={pending}>
