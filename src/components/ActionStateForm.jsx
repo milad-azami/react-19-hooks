@@ -1,5 +1,6 @@
 import { useActionState } from "react";
 import SubmitButton from "./SubmitButton";
+import { BASE_URL } from "../constant";
 
 const ActionStateForm = () => {
   const [state, submitAction] = useActionState(createPost, {
@@ -13,16 +14,14 @@ const ActionStateForm = () => {
 
     const form = Object.fromEntries(formData.entries());
     try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(form),
-        }
-      );
+      2;
+      const response = await fetch(`${BASE_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
