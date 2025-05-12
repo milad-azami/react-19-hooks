@@ -5,8 +5,8 @@ import StateForm from "./components/StateForm";
 function App() {
   return (
     <div>
-      {/* <StateForm /> */}
-      {/* <ActionStateForm /> */}
+      <StateForm />
+      <ActionStateForm />
       <OptimisticForm />
     </div>
   );
