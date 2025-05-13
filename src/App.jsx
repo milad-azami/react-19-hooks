@@ -1,13 +1,15 @@
 import ActionStateForm from "./components/ActionStateForm";
 import OptimisticForm from "./components/OptimisticForm";
 import StateForm from "./components/StateForm";
+import TransitionComponent from "./components/TransitionComponent";
 
 function App() {
   return (
     <div>
-      <StateForm />
+      {/* <StateForm />
       <ActionStateForm />
-      <OptimisticForm />
+      <OptimisticForm /> */}
+      <TransitionComponent />
     </div>
   );
 }
