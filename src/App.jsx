@@ -5,12 +5,13 @@ import TransitionComponent from "./components/TransitionComponent";
 
 function App() {
   return (
-    <div>
-      {/* <StateForm />
-      <ActionStateForm />
-      <OptimisticForm /> */}
-      <TransitionComponent />
-    </div>
+    <>
+      <h1>Botostart</h1>
+      {/* <TransitionComponent /> */}
+      {/* <StateForm /> */}
+      {/* <ActionStateForm /> */}
+      <OptimisticForm />
+    </>
   );
 }
 

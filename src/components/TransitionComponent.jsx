@@ -1,5 +1,5 @@
-import React, { useTransition } from "react";
-import { BASE_URL } from "../constant";
+import { useTransition } from "react";
+import { BASE_URL } from "../constants";
 
 function TransitionComponent() {
   const [isPending, startTransition] = useTransition();
@@ -20,7 +20,7 @@ function TransitionComponent() {
   return (
     <div>
       <button onClick={clickHandler}>
-        {isPending ? "Loading..." : "Fetch Data"}
+        {isPending ? "Loading..." : "Fetch"}
       </button>
     </div>
   );

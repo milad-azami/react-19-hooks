@@ -1,17 +1,18 @@
-import { startTransition, useEffect, useOptimistic, useState } from "react";
-import { BASE_URL } from "../constant";
+import { useEffect, useOptimistic, useState, startTransition } from "react";
+import { BASE_URL } from "../constants";
 
-const OptimisticForm = () => {
+function OptimisticForm() {
   const [data, setData] = useState([]);
   const [optimisticData, setOptimisticData] = useOptimistic(
     data,
-    (state, newItem) => {
-      return [{ ...newItem, isPending: true }, ...state];
-    }
+    (currentData, optimisticValue) => [
+      { ...optimisticValue, isPending: true },
+      ...currentData,
+    ]
   );
 
   useEffect(() => {
-    fetch(`${BASE_URL}/posts?userId=1`)
+    fetch(`${BASE_URL}/posts`)
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
@@ -19,7 +20,7 @@ const OptimisticForm = () => {
   const submitAction = async (formData) => {
     const form = Object.fromEntries(formData.entries());
     setOptimisticData(form);
-
+    // fetch
     try {
       const response = await fetch(`${BASE_URL}/posts`, {
         method: "POST",
@@ -33,10 +34,9 @@ const OptimisticForm = () => {
         throw new Error(`Request failed: ${response.status}`);
       }
 
-      const result = await response.json();
-
+      const data = await response.json();
       startTransition(() => {
-        setData((prevData) => [result, ...prevData]);
+        setData((previousData) => [data, ...previousData]);
       });
     } catch (err) {
       console.log(err.message);
@@ -48,23 +48,20 @@ const OptimisticForm = () => {
       <form action={submitAction}>
         <input name="title" type="text" placeholder="Title" />
         <input name="body" type="text" placeholder="Body" />
-
         <button type="submit">Submit</button>
       </form>
       <div>
-        {optimisticData.map((opt, index) => (
+        {optimisticData?.map((post, index) => (
           <div key={index}>
-            <span>{opt?.title}</span>
-            {opt.isPending && (
-              <span style={{ fontSize: "8px", paddingLeft: "6px" }}>
-                Loading...
-              </span>
+            <span>{post?.title}</span>
+            {post?.isPending && (
+              <span style={{ fontSize: "12px" }}>Loading...</span>
             )}
           </div>
         ))}
       </div>
     </>
   );
-};
+}
 
 export default OptimisticForm;

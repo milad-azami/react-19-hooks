@@ -1,20 +1,14 @@
 import { useActionState } from "react";
+import { BASE_URL } from "../constants";
 import SubmitButton from "./SubmitButton";
-import { BASE_URL } from "../constant";
 
-const ActionStateForm = () => {
-  const [state, submitAction] = useActionState(createPost, {
-    data: null,
-    error: null,
-  });
+function ActionStateForm() {
+  const [state, submitAction] = useActionState(createPost, null);
+  //   console.log("ActionStateForm rerendered");
 
   async function createPost(previousState, formData) {
-    // const title = formData.get("title");
-    // const body = formData.get("body");
-
     const form = Object.fromEntries(formData.entries());
     try {
-      2;
       const response = await fetch(`${BASE_URL}/posts`, {
         method: "POST",
         headers: {
@@ -30,37 +24,25 @@ const ActionStateForm = () => {
       const data = await response.json();
       return { data, error: null };
     } catch (err) {
-      return { data: previousState, error: err.message };
+      return { ...previousState, error: err.message };
     }
   }
 
   return (
     <form action={submitAction}>
-      <input
-        id="title"
-        name="title"
-        type="text"
-        placeholder="Title"
-        value={state.title}
-      />
-      <input
-        id="body"
-        name="body"
-        type="text"
-        placeholder="Body"
-        value={state.body}
-      />
+      <input name="title" type="text" placeholder="Title" />
+      <input name="body" type="text" placeholder="Body" />
 
       {/* <button type="submit" disabled={isPending}>
         {isPending ? "Submitting..." : "Submit"}
       </button> */}
       <SubmitButton />
 
-      {state.error && <p style={{ color: "red" }}>Error: {state.error}</p>}
+      {!!state?.error && <pre>{state.error}</pre>}
 
-      {state.data && <pre>{JSON.stringify(state.data)}</pre>}
+      {!!state?.data && <pre>{JSON.stringify(state.data)}</pre>}
     </form>
   );
-};
+}
 
 export default ActionStateForm;

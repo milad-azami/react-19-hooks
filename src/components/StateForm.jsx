@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { BASE_URL } from "../constant";
+import { BASE_URL } from "../constants";
 
-import "../App.css";
-
+// Mutation
+// useActionState
+// Action
 const StateForm = () => {
   const [formData, setFormData] = useState({ title: "", body: "" });
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  // console.log("StateForm rerendered")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +39,7 @@ const StateForm = () => {
 
       const result = await response.json();
       setData(result);
+      setFormData({ title: "", body: "" });
     } catch (err) {
       setError(err.message);
     } finally {
