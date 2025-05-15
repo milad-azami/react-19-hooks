@@ -7,6 +7,7 @@ const fetchPosts = async () => {
   return response.json();
 };
 
+
 function SuspenseWrapper() {
   const posts = fetchPosts();
 
