@@ -8,6 +8,9 @@ import { DataProvider } from "./context/DataProvider";
 function App() {
   return (
     <DataProvider>
+      <title>Botostart | Milad Azami</title>
+      <meta name="author" content="milad Azami" />
+      <meta name="keywords" content="milad Azami, Botostart, Blog" />
       <h1>Botostart</h1>
       {/* <TransitionComponent /> */}
       {/* <StateForm /> */}
